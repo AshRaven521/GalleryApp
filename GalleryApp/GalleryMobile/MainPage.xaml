@@ -24,6 +24,8 @@
                 ItemSizingStrategy="MeasureFirstItem"
                 ItemsLayout="VerticalGrid, 2"
                 ItemsSource="{Binding UnsplashPhotos}"
+                RemainingItemsThreshold="31"
+                RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}"
                 Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
