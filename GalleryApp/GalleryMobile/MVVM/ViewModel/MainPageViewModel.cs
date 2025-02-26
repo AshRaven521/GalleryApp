@@ -10,9 +10,17 @@ namespace GalleryMobile.MVVM.ViewModel
 {
     public partial class MainPageViewModel : ObservableObject
     {
-        private readonly UnsplashAPIClient client = new UnsplashAPIClient();
-        private readonly CancellationTokenSource cancellationTokenSource = new CancellationTokenSource();
         private int pageNumber = 1;
+
+        private readonly UnsplashAPIClient client;
+        private readonly CancellationTokenSource cancellationTokenSource;
+
+        public MainPageViewModel(UnsplashAPIClient client,
+                                 CancellationTokenSource cancellationTokenSource)
+        {
+            this.client = client;
+            this.cancellationTokenSource = cancellationTokenSource;
+        }
 
         private ObservableCollection<UnsplashPhoto> unsplashPhotos;
 
@@ -33,14 +41,23 @@ namespace GalleryMobile.MVVM.ViewModel
             }
         }
 
-
-        /* NOTE: Create empty constructor for page binding context. Page binding context can't take injectable constructor, so DI can't be released =( */
-        public MainPageViewModel()
+        private UnsplashPhoto selectedPhoto;
+        public UnsplashPhoto SelectedPhoto
         {
-
+            get
+            {
+                return selectedPhoto;
+            }
+            set
+            {
+                if (selectedPhoto == value)
+                {
+                    return;
+                }
+                selectedPhoto = value;
+                OnPropertyChanged(nameof(SelectedPhoto));
+            }
         }
-
-
 
         [RelayCommand]
         public async Task GetPhotosAsync()
@@ -56,6 +73,38 @@ namespace GalleryMobile.MVVM.ViewModel
             {
 
             }
+        }
+
+        [RelayCommand]
+        public async Task RemainingItemsThresholdReachedAsync()
+        {
+            List<UnsplashPhoto> photos;
+            // Firstly increment because first page loaded with application loaded (or button pressed)
+            pageNumber++;
+            try
+            {
+                photos = await client.GetPhotosAsync(cancellationTokenSource.Token, pageNumber);
+                foreach (var photo in photos)
+                {
+                    UnsplashPhotos.Add(photo);
+                }
+            }
+            catch (UnsplashAPIException ex)
+            {
+
+            }
+        }
+
+        [RelayCommand]
+        public async Task OpenImageDetailsAsync()
+        {
+            var navigationParameter = new Dictionary<string, object>
+            {
+                {"Photo", selectedPhoto }
+            };
+
+            await Shell.Current.GoToAsync(nameof(ImageDetails), navigationParameter);
+
         }
     }
 }
