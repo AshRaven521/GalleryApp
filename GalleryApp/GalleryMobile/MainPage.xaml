@@ -2,11 +2,10 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GalleryMobile.MainPage"
-             xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel">
+             xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
+             xmlns:model="clr-namespace:GalleryMobile.UnsplashAPI.Model"
+             x:DataType="viewModel:MainPageViewModel">
 
-    <ContentPage.BindingContext>
-        <viewModel:MainPageViewModel></viewModel:MainPageViewModel>
-    </ContentPage.BindingContext>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -21,27 +20,33 @@
 
         <CollectionView
                 x:Name="photosCollection"
-                ItemSizingStrategy="MeasureFirstItem"
                 ItemsLayout="VerticalGrid, 2"
                 ItemsSource="{Binding UnsplashPhotos}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedPhoto}"
                 RemainingItemsThreshold="31"
                 RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}"
                 Grid.Row="1">
             <CollectionView.ItemTemplate>
-                <DataTemplate>
+                <DataTemplate x:DataType="model:UnsplashPhoto">
 
+                    <Grid BindingContext="">
+                        
+                        <Image Aspect="AspectFit"
+                               Margin="5, 5, 5, 5"
+                               WidthRequest="250">
 
-                    <Image Aspect="AspectFit"
-                           Margin="5, 5, 5, 5"
-                           HeightRequest="200"
-                           WidthRequest="200">
-
-                        <Image.Source>
-                            <UriImageSource Uri="{Binding Url}"
-                                            CachingEnabled="True"
-                                            CacheValidity="10:00:00"/>
-                        </Image.Source>
-                    </Image>
+                            <Image.Source>
+                                <UriImageSource Uri="{Binding Url}"
+                                                CachingEnabled="True"
+                                                CacheValidity="10:00:00"/>
+                            </Image.Source>
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=OpenImageDetailsCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </Grid>
 
 
                 </DataTemplate>
