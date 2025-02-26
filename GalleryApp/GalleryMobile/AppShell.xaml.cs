@@ -7,7 +7,7 @@ namespace GalleryMobile
         public AppShell()
         {
             InitializeComponent();
-            Routing.RegisterRoute(nameof(ImageDetailsPage), typeof(ImageDetailsPage));
+            Routing.RegisterRoute(nameof(ImageDetails), typeof(ImageDetails));
         }
     }
 }
