@@ -70,7 +70,15 @@ namespace GalleryMobile.UnsplashAPI
                 foreach (var photo in photos)
                 {
                     string id = photo["id"].GetValue<string>();
-                    string description = photo["alt_description"].GetValue<string>();
+                    string description = string.Empty;
+                    if (photo["alt_description"] == null)
+                    {
+                        description = photo["description"].GetValue<string>();
+                    }
+                    else if (photo["description"] == null)
+                    {
+                        description = photo["alt_description"].GetValue<string>();
+                    }
                     string url = photo["urls"]["regular"].GetValue<string>();
 
                     var unsplahPhoto = new UnsplashPhoto
