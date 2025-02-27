@@ -13,5 +13,8 @@
                                 CachingEnabled="False"/>
             </Image.Source>
         </Image>
+
+        <Label Text="{Binding Photo.Description}"/>
+        <Label Text="{Binding Photo.Id}"/>
     </VerticalStackLayout>
 </ContentPage>
