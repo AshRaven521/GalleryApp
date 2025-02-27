@@ -1,4 +1,5 @@
-﻿using GalleryMobile.MVVM.ViewModel;
+﻿using GalleryMobile.MVVM.View.Pages;
+using GalleryMobile.MVVM.ViewModel;
 using GalleryMobile.UnsplashAPI;
 using Microsoft.Extensions.Logging;
 
@@ -26,16 +27,13 @@ namespace GalleryMobile
 
             builder.Services.AddSingleton<UnsplashAPIClient>();
             builder.Services.AddSingleton<MainPageViewModel>();
-            builder.Services.AddSingleton<ImageDetialsViewModel>(p => new ImageDetialsViewModel(new UnsplashAPI.Model.UnsplashPhoto
-            {
-                /* NOTE: Initialize UnsplashPhoto object with random data to inject */
-                Id = "1",
-                Description = "asdasdasd",
-                Url = new Uri("https://images.unsplash.com/face-springmorning.jpg?q=75&fm=jpg&w=1080&fit=max")
-            }));
+
+            builder.Services.AddSingleton<ImageDetialsViewModel>();
 
 
             builder.Services.AddView<MainPage, MainPageViewModel>();
+
+            builder.Services.AddView<ImageDetails, ImageDetialsViewModel>();
 
 
 #if DEBUG
@@ -46,7 +44,7 @@ namespace GalleryMobile
         }
 
         private static void AddView<TView, TViewModel>(this IServiceCollection services)
-            where TView : Element, new()
+            where TView : ContentPage, new()
             where TViewModel : notnull
         {
             services.AddSingleton<TView>(serviceProvider => new TView()
