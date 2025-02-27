@@ -41,24 +41,6 @@ namespace GalleryMobile.MVVM.ViewModel
             }
         }
 
-        private UnsplashPhoto selectedPhoto;
-        public UnsplashPhoto SelectedPhoto
-        {
-            get
-            {
-                return selectedPhoto;
-            }
-            set
-            {
-                if (selectedPhoto == value)
-                {
-                    return;
-                }
-                selectedPhoto = value;
-                OnPropertyChanged(nameof(SelectedPhoto));
-            }
-        }
-
         [RelayCommand]
         public async Task GetPhotosAsync()
         {
@@ -96,11 +78,11 @@ namespace GalleryMobile.MVVM.ViewModel
         }
 
         [RelayCommand]
-        public async Task OpenImageDetailsAsync()
+        public async Task OpenImageDetailsAsync(UnsplashPhoto commandParameterPhoto)
         {
             var navigationParameter = new Dictionary<string, object>
             {
-                {"Photo", selectedPhoto }
+                {"Photo", commandParameterPhoto }
             };
 
             await Shell.Current.GoToAsync(nameof(ImageDetails), navigationParameter);
