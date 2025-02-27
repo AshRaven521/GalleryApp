@@ -1,19 +1,15 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using GalleryMobile.UnsplashAPI.Model;
 
 namespace GalleryMobile.MVVM.ViewModel
 {
-    public partial class ImageDetialsViewModel : ObservableObject
+    public partial class ImageDetialsViewModel : ObservableObject, IQueryAttributable
     {
 
-        private UnsplashPhoto photo;
+        private UnsplashPhoto? photo;
 
-        public ImageDetialsViewModel(UnsplashPhoto photo)
-        {
-            this.photo = photo;
-        }
-
-        public UnsplashPhoto Photo
+        public UnsplashPhoto? Photo
         {
             get
             {
@@ -32,11 +28,8 @@ namespace GalleryMobile.MVVM.ViewModel
 
         public void ApplyQueryAttributes(IDictionary<string, object> query)
         {
-
-            var navigatedPhoto = query["Photo"] as UnsplashPhoto;
-            photo.Url = navigatedPhoto.Url;
-            photo.Description = navigatedPhoto.Description;
-            photo.Id = navigatedPhoto.Id;
+            Photo = (UnsplashPhoto)query["Photo"];
         }
+
     }
 }
