@@ -2,6 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GalleryMobile.MainPage"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
              xmlns:model="clr-namespace:GalleryMobile.UnsplashAPI.Model"
              x:DataType="viewModel:MainPageViewModel">
@@ -31,19 +32,32 @@
 
                     <Grid BindingContext="">
                         
-                        <Image Aspect="AspectFit"
-                               Margin="5, 5, 5, 5">
+                        <Image
+                            x:Name="photo"
+                            Aspect="AspectFit"
+                            Margin="5, 5, 5, 5">
 
                             <Image.Source>
                                 <UriImageSource Uri="{Binding Url}"
                                                 CachingEnabled="True"
-                                                CacheValidity="10:00:00"/>
+                                                CacheValidity="10"/>
                             </Image.Source>
                             <Image.GestureRecognizers>
                                 <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=OpenImageDetailsCommand}"
                                                       CommandParameter="{Binding .}"/>
                             </Image.GestureRecognizers>
                         </Image>
+
+                        <ActivityIndicator
+                            HeightRequest="32"
+                            WidthRequest="32"
+                            VerticalOptions="Center"
+                            Margin="0,0,0,0"
+                            HorizontalOptions="Center"
+                            IsRunning="{Binding IsLoading, Source={x:Reference photo}}"
+                            IsVisible="{Binding IsLoading, Source={x:Reference photo}}"
+                            Color="#000000" />
+
                     </Grid>
 
 
