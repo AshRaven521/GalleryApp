@@ -15,11 +15,28 @@ namespace GalleryMobile.MVVM.ViewModel
         private readonly UnsplashAPIClient client;
         private readonly CancellationTokenSource cancellationTokenSource;
 
+        private List<UnsplashPhoto> downloadedPhotos;
+
         public MainPageViewModel(UnsplashAPIClient client,
                                  CancellationTokenSource cancellationTokenSource)
         {
             this.client = client;
             this.cancellationTokenSource = cancellationTokenSource;
+            Connectivity.ConnectivityChanged += async (s, e) => await CheckNetworkAccess(s, e);
+        }
+
+        private async Task CheckNetworkAccess(object? sender, ConnectivityChangedEventArgs e)
+        {
+            if (e.NetworkAccess == NetworkAccess.Internet)
+            {
+                await Shell.Current.DisplayAlert("Internet", "Internet Connection Available.", "Ok");
+                downloadedPhotos = await client.GetPhotosAsync(cancellationTokenSource.Token, pageNumber);
+                UnsplashPhotos = new ObservableCollection<UnsplashPhoto>(downloadedPhotos);
+            }
+            else
+            {
+                await Shell.Current.DisplayAlert("Internet", "No Internet Connection.", "Ok");
+            }
         }
 
         private ObservableCollection<UnsplashPhoto> unsplashPhotos;
@@ -44,45 +61,45 @@ namespace GalleryMobile.MVVM.ViewModel
         [RelayCommand]
         public async Task GetPhotosAsync()
         {
-            List<UnsplashPhoto> photos;
             try
             {
-                photos = await client.GetPhotosAsync(cancellationTokenSource.Token);
+                downloadedPhotos = await client.GetPhotosAsync(cancellationTokenSource.Token);
 
-                UnsplashPhotos = new ObservableCollection<UnsplashPhoto>(photos);
+                UnsplashPhotos = new ObservableCollection<UnsplashPhoto>(downloadedPhotos);
             }
-            catch (UnsplashAPIException ex)
+            catch (UnsplashAPIException)
             {
-
+                await Shell.Current.DisplayAlert("Error", "Erorr ocured while downloading data from Unsplash API!", "Ok");
             }
         }
 
         [RelayCommand]
         public async Task RemainingItemsThresholdReachedAsync()
         {
-            List<UnsplashPhoto> photos;
             // Firstly increment because first page loaded with application loaded (or button pressed)
             pageNumber++;
             try
             {
-                photos = await client.GetPhotosAsync(cancellationTokenSource.Token, pageNumber);
-                foreach (var photo in photos)
+                downloadedPhotos = await client.GetPhotosAsync(cancellationTokenSource.Token, pageNumber);
+                foreach (var photo in downloadedPhotos)
                 {
                     UnsplashPhotos.Add(photo);
                 }
             }
-            catch (UnsplashAPIException ex)
+            catch (UnsplashAPIException)
             {
-
+                await Shell.Current.DisplayAlert("Error", "Erorr ocured while downloading data from Unsplash API!", "Ok");
             }
         }
 
         [RelayCommand]
         public async Task OpenImageDetailsAsync(UnsplashPhoto commandParameterPhoto)
         {
+
             var navigationParameter = new Dictionary<string, object>
             {
-                {"Photo", commandParameterPhoto }
+                {"Photo", commandParameterPhoto },
+                {"OtherPhotos", UnsplashPhotos }
             };
 
             await Shell.Current.GoToAsync(nameof(ImageDetails), navigationParameter);
