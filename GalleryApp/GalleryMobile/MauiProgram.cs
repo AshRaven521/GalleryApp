@@ -1,4 +1,5 @@
-﻿using GalleryMobile.MVVM.View.Pages;
+﻿using CommunityToolkit.Maui;
+using GalleryMobile.MVVM.View.Pages;
 using GalleryMobile.MVVM.ViewModel;
 using GalleryMobile.UnsplashAPI;
 using Microsoft.Extensions.Logging;
@@ -17,6 +18,7 @@ namespace GalleryMobile
 
             builder
                 .UseMauiApp<App>()
+                .UseMauiCommunityToolkit()
                 .ConfigureFonts(fonts =>
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
