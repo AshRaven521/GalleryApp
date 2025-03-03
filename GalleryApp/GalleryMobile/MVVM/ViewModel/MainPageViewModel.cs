@@ -12,12 +12,12 @@ namespace GalleryMobile.MVVM.ViewModel
     {
         private int pageNumber = 1;
 
-        private readonly UnsplashAPIClient client;
+        private readonly IUnsplashAPIClient client;
         private readonly CancellationTokenSource cancellationTokenSource;
 
         private List<UnsplashPhoto> downloadedPhotos;
 
-        public MainPageViewModel(UnsplashAPIClient client,
+        public MainPageViewModel(IUnsplashAPIClient client,
                                  CancellationTokenSource cancellationTokenSource)
         {
             this.client = client;
@@ -105,5 +105,6 @@ namespace GalleryMobile.MVVM.ViewModel
             await Shell.Current.GoToAsync(nameof(ImageDetails), navigationParameter);
 
         }
+
     }
 }

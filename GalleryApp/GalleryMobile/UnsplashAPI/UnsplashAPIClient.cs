@@ -5,7 +5,7 @@ using System.Text.Json.Nodes;
 
 namespace GalleryMobile.UnsplashAPI
 {
-    public class UnsplashAPIClient
+    public class UnsplashAPIClient : IUnsplashAPIClient
     {
         private readonly string KEYS_FILE_NAME = "keys.json";
         private readonly string BASE_PHOTOS_URI = "https://api.unsplash.com/photos";
@@ -85,7 +85,7 @@ namespace GalleryMobile.UnsplashAPI
                     {
                         Id = id,
                         Description = description,
-                        Url = new Uri(url)
+                        Url = new Uri(url),
                     };
 
                     unsplashPhotos.Add(unsplahPhoto);

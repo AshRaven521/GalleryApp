@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Maui;
+using GalleryMobile.DataPersistence;
 using GalleryMobile.MVVM.View.Pages;
 using GalleryMobile.MVVM.ViewModel;
 using GalleryMobile.UnsplashAPI;
@@ -27,7 +28,7 @@ namespace GalleryMobile
 
             builder.Services.AddSingleton(cancellationTokenSource);
 
-            builder.Services.AddSingleton<UnsplashAPIClient>();
+            builder.Services.AddSingleton<IUnsplashAPIClient, UnsplashAPIClient>();
             builder.Services.AddSingleton<MainPageViewModel>();
 
             builder.Services.AddSingleton<ImageDetialsViewModel>();
