@@ -86,6 +86,7 @@ namespace GalleryMobile.UnsplashAPI
                         Id = id,
                         Description = description,
                         Url = new Uri(url),
+                        IsLiked = false
                     };
 
                     unsplashPhotos.Add(unsplahPhoto);
