@@ -5,7 +5,7 @@ using System.Text.Json.Nodes;
 
 namespace GalleryMobile.UnsplashAPI
 {
-    public class UnsplashAPIClient
+    public class UnsplashAPIClient : IUnsplashAPIClient
     {
         private readonly string KEYS_FILE_NAME = "keys.json";
         private readonly string BASE_PHOTOS_URI = "https://api.unsplash.com/photos";
@@ -70,14 +70,22 @@ namespace GalleryMobile.UnsplashAPI
                 foreach (var photo in photos)
                 {
                     string id = photo["id"].GetValue<string>();
-                    string description = photo["alt_description"].GetValue<string>();
+                    string description = string.Empty;
+                    if (photo["alt_description"] == null)
+                    {
+                        description = photo["description"].GetValue<string>();
+                    }
+                    else if (photo["description"] == null)
+                    {
+                        description = photo["alt_description"].GetValue<string>();
+                    }
                     string url = photo["urls"]["regular"].GetValue<string>();
 
                     var unsplahPhoto = new UnsplashPhoto
                     {
                         Id = id,
                         Description = description,
-                        Url = new Uri(url)
+                        Url = new Uri(url),
                     };
 
                     unsplashPhotos.Add(unsplahPhoto);

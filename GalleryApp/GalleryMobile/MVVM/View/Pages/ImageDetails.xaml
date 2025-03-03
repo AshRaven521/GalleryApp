@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="GalleryMobile.MVVM.View.Pages.ImageDetails"
+             xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
+             xmlns:model="clr-namespace:GalleryMobile.UnsplashAPI.Model"
+             Title="ImageDetailsPage"
+             x:DataType="viewModel:ImageDetialsViewModel">
+
+
+    <CarouselView 
+        ItemsSource="{Binding NavigatedPhotos}"
+        CurrentItem="{Binding TappedPhoto}">
+        <CarouselView.ItemTemplate>
+            <DataTemplate x:DataType="model:UnsplashPhoto">
+                <Grid RowDefinitions="8*, 1*">
+
+                    <Image 
+                        Aspect="AspectFit"
+                        Margin="5, 5, 5, 5"
+                        Grid.Row="0">
+
+                        <Image.Source>
+                            <UriImageSource Uri="{Binding Url}"
+                                            CachingEnabled="True"/>
+                        </Image.Source>
+
+                    </Image>
+
+                    <VerticalStackLayout 
+                        Grid.Row="1" 
+                        VerticalOptions="Fill"
+                        Margin="5, 5, 5, 5">
+
+                        <Label Text="{Binding Description}"/>
+                        <Label Text="{Binding Id}"/>
+                    </VerticalStackLayout>
+                </Grid>
+
+            </DataTemplate>
+        </CarouselView.ItemTemplate>
+
+    </CarouselView>
+
+</ContentPage>
