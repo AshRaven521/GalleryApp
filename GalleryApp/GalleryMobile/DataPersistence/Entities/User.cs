@@ -1,40 +1,36 @@
 ﻿using GalleryMobile.UnsplashAPI.Model;
-using SQLite;
-using SQLiteNetExtensions.Attributes;
+using Microsoft.EntityFrameworkCore;
 
 namespace GalleryMobile.DataPersistence.Entities
 {
-    [Table("users")]
     public class User
     {
-        [PrimaryKey]
-        [AutoIncrement]
-        [Column("id")]
         public int Id { get; set; }
 
-        [Column("user_name")]
         public string UserName { get; set; } = string.Empty;
 
-        [Column("password")]
         public string Password { get; set; } = string.Empty;
 
-        [Column("email")]
         public string Email { get; set; } = string.Empty;
 
-        [OneToMany]
-        [Column("liked_photos")]
-        public List<UnsplashPhoto>? LikedPhotos { get; set; }
+        public bool IsLoggedIn { get; set; } = false;
+
+        public DateTime LastLoggedInDate { get; set; }
+
+        public List<UnsplashPhoto> LikedPhotos { get; set; } = new List<UnsplashPhoto>();
 
         public User()
         {
 
         }
 
-        public User(string userName, string password, string email)
+        public User(string userName, string password, string email, bool isLoggedIn, DateTime loggedInDate)
         {
             UserName = userName;
             Password = password;
             Email = email;
+            IsLoggedIn = isLoggedIn;
+            LastLoggedInDate = loggedInDate;
         }
     }
 }
