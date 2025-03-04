@@ -1,29 +1,37 @@
-﻿using GalleryMobile.DataPersistence.Entities;
-using SQLite;
-using SQLiteNetExtensions.Attributes;
-
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace GalleryMobile.UnsplashAPI.Model
 {
-    [Table("photos")]
-    public class UnsplashPhoto
+    public class UnsplashPhoto : ObservableObject
     {
-        [PrimaryKey]
-        [Column("id")]
         public string? Id { get; set; }
 
-        [ForeignKey(typeof(User))]
-        [Column("user_id")]
         public int? UserId { get; set; }
-        [Column("description")]
         public string? Description { get; set; }
-        [Column("url")]
         public Uri? Url { get; set; }
-        [Column("is_liked")]
-        public bool? IsLiked { get; set; }
+        [NotMapped]
+        private bool? isLiked;
+        public bool? IsLiked
+        {
+            get
+            {
+                return isLiked;
+            }
+            set
+            {
+                if (isLiked == value)
+                {
+                    return;
+                }
+                isLiked = value;
+                OnPropertyChanged(nameof(IsLiked));
+
+            }
+        }
 
         public UnsplashPhoto()
         {
-            
+
         }
     }
 }
