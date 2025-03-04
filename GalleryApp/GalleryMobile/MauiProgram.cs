@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Maui;
 using GalleryMobile.DataPersistence;
+using GalleryMobile.DataPersistence.Services;
 using GalleryMobile.MVVM.View.Pages;
 using GalleryMobile.MVVM.ViewModel;
 using GalleryMobile.UnsplashAPI;
@@ -26,17 +27,29 @@ namespace GalleryMobile
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
+            builder.Services.AddDbContext<GalleryAppContext>();
+
             builder.Services.AddSingleton(cancellationTokenSource);
 
             builder.Services.AddSingleton<IUnsplashAPIClient, UnsplashAPIClient>();
+            builder.Services.AddSingleton<IGalleryAppDatabaseService, GalleryAppDatabaseService>();
+
+
             builder.Services.AddSingleton<MainPageViewModel>();
 
             builder.Services.AddSingleton<ImageDetialsViewModel>();
 
+            builder.Services.AddSingleton<RegistrationViewModel>();
+
+            builder.Services.AddSingleton<LogInViewModel>();
+
 
             builder.Services.AddView<MainPage, MainPageViewModel>();
 
-            builder.Services.AddView<ImageDetails, ImageDetialsViewModel>();
+            builder.Services.AddView<ImageDetailsPage, ImageDetialsViewModel>();
+
+            builder.Services.AddView<RegistrationPage, RegistrationViewModel>();
+            builder.Services.AddView<LogInPage, LogInViewModel>();
 
 
 #if DEBUG
