@@ -106,7 +106,8 @@ namespace GalleryMobile.MVVM.ViewModel
             if (CurrentUser.LikedPhotos.Any(ph => ph.ApiId == thumbPhoto.ApiId))
             {
                 foundPhoto.IsLiked = false;
-                CurrentUser.LikedPhotos.Remove(thumbPhoto);
+                var itemToDelete = CurrentUser.LikedPhotos.First(x => x.ApiId == thumbPhoto.ApiId);
+                CurrentUser.LikedPhotos.Remove(itemToDelete);
             }
             else
             {
