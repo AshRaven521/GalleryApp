@@ -1,8 +1,8 @@
 namespace GalleryMobile.MVVM.View.Pages;
 
-public partial class ImageDetails : ContentPage
+public partial class LogInPage : ContentPage
 {
-	public ImageDetails()
+	public LogInPage()
 	{
 		InitializeComponent();
 	}

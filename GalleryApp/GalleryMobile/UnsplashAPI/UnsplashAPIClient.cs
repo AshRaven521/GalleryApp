@@ -83,7 +83,7 @@ namespace GalleryMobile.UnsplashAPI
 
                     var unsplahPhoto = new UnsplashPhoto
                     {
-                        Id = id,
+                        ApiId = id,
                         Description = description,
                         Url = new Uri(url),
                     };

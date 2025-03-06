@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="GalleryMobile.MVVM.View.Pages.ImageDetails"
+             x:Class="GalleryMobile.MVVM.View.Pages.ImageDetailsPage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
              xmlns:model="clr-namespace:GalleryMobile.UnsplashAPI.Model"
              Title="ImageDetailsPage"
-             x:DataType="viewModel:ImageDetialsViewModel">
+             x:DataType="viewModel:ImageDetialsViewModel"
+             NavigationPage.HasNavigationBar="False">
 
 
     <CarouselView 
@@ -30,12 +31,25 @@
 
                     <VerticalStackLayout 
                         Grid.Row="1" 
-                        VerticalOptions="Fill"
-                        Margin="5, 5, 5, 5">
+                        VerticalOptions="Fill">
 
+                        <ImageButton 
+                            x:Name="likeButton"
+                            Source="{Binding IsLiked, StringFormat='like_icon_{0}.png'}"
+                            VerticalOptions="Center"
+                            HorizontalOptions="Fill"
+                            HeightRequest="40"
+                            WidthRequest="40"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:ImageDetialsViewModel}}, Path=LikePhotoCommand}"
+                                    CommandParameter="{Binding .}"                                
+                            Padding="0"
+                            />
+                        
                         <Label Text="{Binding Description}"/>
-                        <Label Text="{Binding Id}"/>
+                        <Label Text="{Binding ApiId}"/>
                     </VerticalStackLayout>
+
+
                 </Grid>
 
             </DataTemplate>

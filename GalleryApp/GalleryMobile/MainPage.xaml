@@ -1,52 +1,82 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
+<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="GalleryMobile.MainPage"
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
              xmlns:model="clr-namespace:GalleryMobile.UnsplashAPI.Model"
-             x:DataType="viewModel:MainPageViewModel">
+             x:DataType="viewModel:MainPageViewModel"
+             NavigationPage.HasNavigationBar="False">
 
-
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.1*"/>
             <RowDefinition Height="0.9*"/>
         </Grid.RowDefinitions>
 
-        <Button Text="Get photos"
+        <HorizontalStackLayout Grid.Row="0">
+            <Button 
+                Text="Get photos"
                 Command="{Binding GetPhotosCommand}"
-                Margin="10"
-                Grid.Row="0"/>
+                Margin="10"/>
+
+            <Button
+                Text="Log out"
+                Command="{Binding LogOutCommand}"
+                Margin="10"/>
+
+        </HorizontalStackLayout>
+        
 
         <CollectionView
-                x:Name="photosCollection"
-                ItemsLayout="VerticalGrid, 2"
-                ItemsSource="{Binding UnsplashPhotos}"
-                SelectionMode="Single"
-                RemainingItemsThreshold="31"
-                RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}"
-                Grid.Row="1">
+            x:Name="photosCollection"
+            ItemsLayout="VerticalGrid, 2"
+            ItemsSource="{Binding UnsplashPhotos}"
+            SelectionMode="Single"
+            RemainingItemsThreshold="31"
+            RemainingItemsThresholdReachedCommand="{Binding RemainingItemsThresholdReachedCommand}"
+            Grid.Row="1">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:UnsplashPhoto">
 
-                    <Grid BindingContext="">
-                        
-                        <Image
-                            x:Name="photo"
-                            Aspect="AspectFit"
-                            Margin="5, 5, 5, 5">
+                    <Grid>
 
-                            <Image.Source>
-                                <UriImageSource Uri="{Binding Url}"
-                                                CachingEnabled="True"
-                                                CacheValidity="10"/>
-                            </Image.Source>
-                            <Image.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=OpenImageDetailsCommand}"
-                                                      CommandParameter="{Binding .}"/>
-                            </Image.GestureRecognizers>
-                        </Image>
+                        <VerticalStackLayout 
+                            Background="White"
+                            Margin="5">
+
+                            <Image
+                                x:Name="photo"
+                                Aspect="AspectFit"
+                                HorizontalOptions="Center"
+                                Margin="5, 5, 5, 5">
+
+                                <Image.Source>
+                                    
+                                    <UriImageSource 
+                                        Uri="{Binding Url}"
+                                        CachingEnabled="True"
+                                        CacheValidity="10"/>
+                                    
+                                </Image.Source>
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=OpenImageDetailsCommand}"
+                                                        CommandParameter="{Binding .}"/>
+                                </Image.GestureRecognizers>
+                            </Image>
+
+                            <Image
+                                x:Name="likeImage"
+                                Source="{Binding IsLiked, StringFormat='like_icon_{0}.png'}"
+                                HeightRequest="40"
+                                WidthRequest="40"
+                                IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=IsLikeVisible}">
+
+                            </Image>
+
+                        </VerticalStackLayout>
+
 
                         <ActivityIndicator
                             HeightRequest="32"
