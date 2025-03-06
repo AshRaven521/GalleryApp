@@ -8,8 +8,7 @@ namespace GalleryMobile.DataPersistence.Services
         Task<User?> GetUserByEmailAsync(string email, CancellationToken token);
         Task<User?> GetUserByNickNameAsync(string nickName, CancellationToken token);
         Task SaveUserAsync(User user, CancellationToken token);
-        Task<IEnumerable<UnsplashPhoto>> GetUserLikedPhotosAsync(User user, CancellationToken token);
+        Task<List<ThumbnailPhoto>> GetUserLikedPhotosAsync(User user, CancellationToken token);
         Task<User?> GetLastLoggedInUser(CancellationToken token);
-        Task SavePhotoAsync(UnsplashPhoto photo, CancellationToken token);
     }
 }
