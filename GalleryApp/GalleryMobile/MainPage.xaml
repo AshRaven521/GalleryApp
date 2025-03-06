@@ -55,7 +55,8 @@
 
                             <Image
                                 x:Name="photo"
-                                Aspect="AspectFit"
+                                HeightRequest="300"
+                                WidthRequest="200"
                                 HorizontalOptions="Center"
                                 Margin="5, 5, 5, 5">
 
