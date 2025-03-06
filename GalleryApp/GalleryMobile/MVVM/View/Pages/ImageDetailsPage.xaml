@@ -20,7 +20,8 @@
                     <Image 
                         HeightRequest="500"
                         WidthRequest="450"
-                        Grid.Row="0">
+                        Grid.Row="0"
+                        Margin="10, 5, 10, 5">
 
                         <Image.Source>
                             <UriImageSource Uri="{Binding Url}"
