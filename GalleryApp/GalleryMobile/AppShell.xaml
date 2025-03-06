@@ -6,6 +6,7 @@
     xmlns:local="clr-namespace:GalleryMobile"
     xmlns:pages ="clr-namespace:GalleryMobile.MVVM.View.Pages"
     Shell.FlyoutBehavior="Disabled"
+    Shell.NavBarIsVisible="False"
     Title="GalleryMobile">
 
     <ShellContent
