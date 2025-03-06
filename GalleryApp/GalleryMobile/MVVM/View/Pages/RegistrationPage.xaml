@@ -5,6 +5,11 @@
              xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
              x:DataType="viewModel:RegistrationViewModel"
              Title="Registration">
+
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <VerticalStackLayout VerticalOptions="Center">
         <Label Text="StarLens"
            HorizontalOptions="Center"

@@ -7,6 +7,10 @@
              x:DataType="viewModel:LogInViewModel"
              Title="LogIn">
 
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior IsVisible="False" IsEnabled="False" />
+    </Shell.BackButtonBehavior>
+
     <ContentPage.Behaviors>
         <mct:EventToCommandBehavior Command="{Binding PageAppearingCommand}" EventName="Appearing"/>
     </ContentPage.Behaviors>
