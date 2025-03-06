@@ -4,7 +4,6 @@
     {
         private const string DATABASE_NAME = "GalleryApp.db3";
 
-
         public static string DataBasePath
         {
             get
