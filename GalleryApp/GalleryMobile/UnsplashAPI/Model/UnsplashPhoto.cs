@@ -1,17 +1,16 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
-using System.ComponentModel.DataAnnotations.Schema;
+using GalleryMobile.DataPersistence.Entities;
 namespace GalleryMobile.UnsplashAPI.Model
 {
     public class UnsplashPhoto : ObservableObject
     {
-        public string? Id { get; set; }
-
-        public int? UserId { get; set; }
+        public string ApiId { get; set; } = string.Empty;
+        public List<User> Users { get; set; } = new List<User>();
         public string? Description { get; set; }
         public Uri? Url { get; set; }
-        [NotMapped]
-        private bool? isLiked;
-        public bool? IsLiked
+
+        private bool isLiked = false;
+        public bool IsLiked
         {
             get
             {
@@ -27,11 +26,6 @@ namespace GalleryMobile.UnsplashAPI.Model
                 OnPropertyChanged(nameof(IsLiked));
 
             }
-        }
-
-        public UnsplashPhoto()
-        {
-
         }
     }
 }
