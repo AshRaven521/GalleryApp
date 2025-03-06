@@ -69,10 +69,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="MVVM\Model\" />
-	</ItemGroup>
-
-	<ItemGroup>
 	  <Compile Update="MVVM\View\Pages\ImageDetailsPage.xaml.cs">
 	    <DependentUpon>ImageDetailsPage.xaml</DependentUpon>
 	  </Compile>
@@ -97,6 +93,10 @@
 	  <MauiXaml Update="MVVM\View\Pages\RegistrationPage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="MVVM\Model\" />
 	</ItemGroup>
 
 </Project>
