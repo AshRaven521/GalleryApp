@@ -2,7 +2,6 @@
 using CommunityToolkit.Mvvm.Input;
 using GalleryMobile.DataPersistence.Entities;
 using GalleryMobile.DataPersistence.Services;
-using GalleryMobile.Mappers;
 using GalleryMobile.MVVM.View.Pages;
 using GalleryMobile.UnsplashAPI;
 using GalleryMobile.UnsplashAPI.Exceptions;
@@ -122,7 +121,10 @@ namespace GalleryMobile.MVVM.ViewModel
         public async Task LogOutAsync()
         {
             CurrentUser.IsLoggedIn = false;
-            UnsplashPhotos.Clear();
+            if (UnsplashPhotos != null && UnsplashPhotos.Any())
+            {
+                UnsplashPhotos.Clear();
+            }
             await database.SaveUserAsync(CurrentUser, cancellationTokenSource.Token);
 
             var navParams = new Dictionary<string, object>
