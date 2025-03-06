@@ -1,5 +1,4 @@
 ﻿using GalleryMobile.UnsplashAPI.Model;
-using Microsoft.EntityFrameworkCore;
 
 namespace GalleryMobile.DataPersistence.Entities
 {
@@ -17,7 +16,7 @@ namespace GalleryMobile.DataPersistence.Entities
 
         public DateTime LastLoggedInDate { get; set; }
 
-        public List<UnsplashPhoto> LikedPhotos { get; set; } = new List<UnsplashPhoto>();
+        public List<ThumbnailPhoto> LikedPhotos { get; set; } = new List<ThumbnailPhoto>();
 
         public User()
         {
