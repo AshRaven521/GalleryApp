@@ -15,7 +15,14 @@
             <RowDefinition Height="0.9*"/>
         </Grid.RowDefinitions>
 
-        <HorizontalStackLayout Grid.Row="0">
+        <HorizontalStackLayout Grid.Row="0" Spacing="10">
+
+            <Label Text="{Binding CurrentUser.UserName, StringFormat='User name: {0}'}" 
+                   FontSize="16"
+                   FontAttributes="Bold"
+                   Margin="10, 25, 10, 0"
+                   />
+
             <Button 
                 Text="Get photos"
                 Command="{Binding GetPhotosCommand}"
