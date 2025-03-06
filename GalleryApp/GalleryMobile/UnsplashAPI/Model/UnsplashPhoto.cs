@@ -6,6 +6,8 @@ namespace GalleryMobile.UnsplashAPI.Model
     {
         public string ApiId { get; set; } = string.Empty;
         public List<User> Users { get; set; } = new List<User>();
+        public DateTime Created { get; set; }
+        public DateTime Updated { get; set; }
         public string? Description { get; set; }
         public Uri? Url { get; set; }
 

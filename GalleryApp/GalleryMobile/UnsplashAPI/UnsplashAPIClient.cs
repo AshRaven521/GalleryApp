@@ -56,7 +56,7 @@ namespace GalleryMobile.UnsplashAPI
 
             if (!respone.IsSuccessStatusCode)
             {
-                throw new UnsplashAPIException("There are problems with getting data from Unsplash API");
+                throw new UnsplashAPIException("There are problems with retrieve data from Unsplash API");
             }
 
             string content = await respone.Content.ReadAsStringAsync(cancellationToken);
@@ -81,11 +81,16 @@ namespace GalleryMobile.UnsplashAPI
                     }
                     string url = photo["urls"]["regular"].GetValue<string>();
 
+                    string createdDate = photo["created_at"].GetValue<string>();
+                    string updatedDate = photo["updated_at"].GetValue<string>();
+
                     var unsplahPhoto = new UnsplashPhoto
                     {
                         ApiId = id,
                         Description = description,
                         Url = new Uri(url),
+                        Created = DateTime.Parse(createdDate),
+                        Updated = DateTime.Parse(updatedDate),
                     };
 
                     unsplashPhotos.Add(unsplahPhoto);
