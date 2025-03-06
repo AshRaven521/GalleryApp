@@ -1,5 +1,4 @@
 ﻿using GalleryMobile.DataPersistence.Entities;
-using GalleryMobile.UnsplashAPI.Model;
 
 namespace GalleryMobile.DataPersistence.Services
 {
