@@ -5,15 +5,9 @@
              xmlns:mct="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
              xmlns:viewModel="clr-namespace:GalleryMobile.MVVM.ViewModel"
              xmlns:model="clr-namespace:GalleryMobile.UnsplashAPI.Model"
-             xmlns:converter="clr-namespace:GalleryMobile.Converters"
-             x:DataType="viewModel:MainPageViewModel">
+             x:DataType="viewModel:MainPageViewModel"
+             NavigationPage.HasNavigationBar="False">
 
-
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <converter:BoolToColorConverter x:Key="BoolToColorConverter"/>
-        </ResourceDictionary>
-    </ContentPage.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -72,20 +66,14 @@
                                 </Image.GestureRecognizers>
                             </Image>
 
-                            <ImageButton 
-                                x:Name="likeButton"
+                            <Image
+                                x:Name="likeImage"
                                 Source="{Binding IsLiked, StringFormat='like_icon_{0}.png'}"
-                                VerticalOptions="Center"
-                                HorizontalOptions="Fill"
                                 HeightRequest="40"
                                 WidthRequest="40"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=LikePhotoCommand}"
-                                        CommandParameter="{Binding .}"                                
-                                Padding="0"
                                 IsVisible="{Binding Source={RelativeSource AncestorType={x:Type viewModel:MainPageViewModel}}, Path=IsLikeVisible}">
 
-                                
-                            </ImageButton>
+                            </Image>
 
                         </VerticalStackLayout>
 
