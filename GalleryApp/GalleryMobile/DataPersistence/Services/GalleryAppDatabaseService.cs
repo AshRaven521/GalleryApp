@@ -1,5 +1,4 @@
 ﻿using GalleryMobile.DataPersistence.Entities;
-using GalleryMobile.UnsplashAPI.Model;
 using Microsoft.EntityFrameworkCore;
 
 namespace GalleryMobile.DataPersistence.Services
@@ -22,14 +21,21 @@ namespace GalleryMobile.DataPersistence.Services
 
         public async Task<User?> GetLastLoggedInUser(CancellationToken token)
         {
-            var users = await context.Users.ToListAsync(token);
+            var users = await context.Users.Include(u => u.LikedPhotos).ToListAsync(token);
 
             if (!users.Any())
             {
                 return null;
             }
 
-            var lastLoggedUser = users.Aggregate((s, a) => s.LastLoggedInDate < a.LastLoggedInDate ? s : a);
+            var loggedUsers = users.Where(u => u.IsLoggedIn == true);
+
+            if (!loggedUsers.Any())
+            {
+                return null;
+            }
+
+            var lastLoggedUser = loggedUsers.Aggregate((s, a) => s.LastLoggedInDate < a.LastLoggedInDate ? s : a);
 
             return lastLoggedUser;
         }
@@ -61,31 +67,11 @@ namespace GalleryMobile.DataPersistence.Services
             await context.SaveChangesAsync(token);
         }
 
-        public async Task<IEnumerable<UnsplashPhoto>> GetUserLikedPhotosAsync(User user, CancellationToken token)
+        public async Task<List<ThumbnailPhoto>> GetUserLikedPhotosAsync(User user, CancellationToken token)
         {
-            var userDb = await context.Users.FirstAsync(u => u.Id == user.Id, token);
+            var likedPhotos = await context.Users.Include(x => x.LikedPhotos).FirstAsync(u => u.Id == user.Id);
 
-
-            return userDb.LikedPhotos;
-        }
-
-        public async Task SavePhotoAsync(UnsplashPhoto newPhoto, CancellationToken token)
-        {
-            var dbPhoto = await context.Photos.FirstOrDefaultAsync(x => x.Id == newPhoto.Id, token);
-
-            if (dbPhoto == null)
-            {
-                await context.Photos.AddAsync(newPhoto, token);
-                await context.SaveChangesAsync(token);
-                return;
-            }
-
-            dbPhoto.Url = newPhoto.Url;
-            dbPhoto.UserId = newPhoto.UserId;
-            dbPhoto.IsLiked = newPhoto.IsLiked;
-            dbPhoto.Description = newPhoto.Description;
-
-            await context.SaveChangesAsync(token);
+            return likedPhotos.LikedPhotos;
         }
 
 
