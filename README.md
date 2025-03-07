@@ -86,6 +86,6 @@ Page refreshed
 To install and run the project you need
 - [VS 2022](https://visualstudio.microsoft.com/ru/vs/)
 - [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- [MAUI] https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-8.0
+- [MAUI] (https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-8.0)
 
  
