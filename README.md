@@ -2,11 +2,11 @@
 Test task. Objective: Develop an image gallery app that allows users to browse and favourite images fetched from an API.
 
 ## Content
-- [Mandatory requirements] (#mandatory-requirements)
-- [Additional features] (#additional-features)
+- [Mandatory requirements](#mandatory-requirements)
+- [Additional features](#additional-features)
 - [Technologies](#technologies)
 - [Execution example](#execution-example)
-- [Develop] (#Develop)
+- [Develop](#Develop)
 
 ## Mandatory requirements
 
@@ -86,6 +86,6 @@ Page refreshed
 To install and run the project you need
 - [VS 2022](https://visualstudio.microsoft.com/ru/vs/)
 - [.NET 8](https://dotnet.microsoft.com/en-us/download/dotnet/8.0)
-- [MAUI] (https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-8.0)
+- [MAUI](https://learn.microsoft.com/en-us/dotnet/maui/?view=net-maui-8.0)
 
  
