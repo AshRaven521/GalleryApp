@@ -11,7 +11,7 @@
     </Shell.BackButtonBehavior>
 
     <VerticalStackLayout VerticalOptions="Center">
-        <Label Text="StarLens"
+        <Label Text="GalleryApp"
            HorizontalOptions="Center"
            FontSize="40"/>
         <Entry Placeholder="NickName" 
